@@ -1,5 +1,6 @@
 
 import './App.css'
+import Root from './componenets/Root'
 
 function App() {
   
@@ -7,7 +8,8 @@ function App() {
   return (
     <>
         <div>
-          <h1>Hello world!</h1>
+          <Root/>
+         
         </div>
     </>
   )
