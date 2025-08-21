@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const [activeLink, setActiveLink] = useState();
-  const location = useLocation(); // Added to detect current path
+  const location = useLocation(); 
 
   const handleClick = (path) => {
     setActiveLink(path);
@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
       <nav className="bg-blue-800 text-white py-4 md:py-6 sticky top-0 border-b-4 border-green-400">
         <div className="container mx-auto flex justify-between items-center">
-          <h3>React Prctice</h3>
+         <img className="h-[80px] m-0 p-0" src="./src/assets/logo.png" alt="" />
           {/* mobile Button */}
           <div className="md:hidden">
             <button onClick={toggleMenu}>
