@@ -7,7 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Navbar = () => {
   const [isOpen, setOpen] = useState(false);
   const location = useLocation();
-  const { user, handleSignout } = useContext(AuthContext); // make sure handleSignout exists in AuthProvider
+  const { user, handleSignout } = useContext(AuthContext);
 
   const toggleMenu = () => setOpen((v) => !v);
 
@@ -38,10 +38,10 @@ const Navbar = () => {
         </ul>
 
         <div className="ml-auto flex items-center gap-3">
-          {/* Desktop Login / User */}
+          {/* Desktop User/Login */}
           {user ? (
             <div className="flex items-center gap-2">
-              <span>{user?.email}</span>
+              <span>{user?.displayName || user?.email}</span>
               <button
                 onClick={handleLogout}
                 className="px-2 py-1 bg-red-500 rounded hover:bg-red-600 transition"
@@ -67,7 +67,6 @@ const Navbar = () => {
           <button
             className="md:hidden inline-flex items-center"
             onClick={toggleMenu}
-            aria-label="Toggle menu"
           >
             {isOpen ? <IoMdCloseCircle size={28} /> : <FaBars size={24} />}
           </button>
@@ -92,7 +91,7 @@ const Navbar = () => {
           <li>
             {user ? (
               <div className="flex items-center gap-2">
-                <span>{user?.email}</span>
+                <span>{user?.displayName || user?.email}</span>
                 <button
                   onClick={() => { handleLogout(); setOpen(false); }}
                   className="px-2 py-1 bg-red-500 rounded hover:bg-red-600 transition"

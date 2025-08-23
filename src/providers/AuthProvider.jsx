@@ -1,11 +1,18 @@
 import React, { createContext, useState, useEffect } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile as firebaseUpdateProfile,
+} from "firebase/auth";
 import { auth } from "../FireBase/firebase.config";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setloading] = useState(true);
 
   // Sign up
   const createUserWithPass = (email, pass) => {
@@ -17,18 +24,24 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, pass);
   };
 
-  // 
+
+  const updateUserProfile = (name) => {
+    if (!auth.currentUser) return Promise.reject("No user logged in");
+
+    return firebaseUpdateProfile(auth.currentUser, { displayName: name })
+      .then(() => setUser({ ...auth.currentUser }));
+  };
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log("login user", currentUser.email);
         setUser(currentUser);
       } else {
-        console.log("user is signout");
         setUser(null);
       }
+      setloading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -42,9 +55,18 @@ const AuthProvider = ({ children }) => {
     handleSignout,
     createUserWithPass,
     signInWithEmail,
+    updateUserProfile,
   };
 
-  return <AuthContext.Provider value={authInformation}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={authInformation}>{
+
+    loading?<div className="flex items-center justify-center min-h-screen bg-blue-950">
+  <span className="text-white text-3xl font-bold animate-pulse">
+    Loading......
+  </span>
+</div>
+:children
+  }</AuthContext.Provider>;
 };
 
 export default AuthProvider;

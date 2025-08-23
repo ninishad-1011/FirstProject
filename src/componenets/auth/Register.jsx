@@ -8,7 +8,7 @@ const Register = () => {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
-  const { createUserWithPass } = useContext(AuthContext);
+  const { createUserWithPass, updateUserProfile } = useContext(AuthContext);
 
   const [errorMsg, setErrormsg] = useState("");
   const [successregister, setSuccess] = useState("");
@@ -25,33 +25,34 @@ const Register = () => {
     const confirmPassword = e.target.confirmpass.value;
 
     if (pass !== confirmPassword) {
-      setErrormsg("Passwords do not match");
+      setErrormsg("Passwords do not match ❌");
       setSuccess("");
       return;
     }
-    if (!passwordRegex.test(confirmPassword)) {
+
+    if (!passwordRegex.test(pass)) {
       setErrormsg(
         "Password must be at least 6 characters long and include letters & numbers"
       );
+      setSuccess("");
       return;
     }
 
     createUserWithPass(email, pass)
-      .then((result) => {
-        const user = result.user;
-
+      .then(() => {
+        return updateUserProfile(fullname); // update displayName
+      })
+      .then(() => {
         setErrormsg("");
         e.target.reset();
 
         Swal.fire({
           title: "Good job!",
-          text: "Registration Successfully!",
+          text: "Registration Successfully ✅",
           icon: "success",
         });
-        setTimeout(() => {
-          setSuccess("");
-          navigate("/login");
-        }, 500);
+
+        setTimeout(() => navigate("/login"), 1000);
       })
       .catch((err) => {
         setErrormsg(err.message);
@@ -116,9 +117,6 @@ const Register = () => {
           </div>
 
           {errorMsg && <p className="text-center text-red-700">{errorMsg}</p>}
-          {successregister && (
-            <p className="text-center text-green-600">{successregister}</p>
-          )}
 
           <p className="flex items-center gap-2">
             <input type="checkbox" name="terms" id="checkbox" required />
@@ -130,23 +128,9 @@ const Register = () => {
           </button>
         </form>
 
-        {/* github & google signing button */}
-        <div className="flex flex-col gap-4 mt-6">
-          <button className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition duration-300">
-            Register With Google
-          </button>
-
-          <button className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 rounded-lg transition duration-300">
-            Register With Github
-          </button>
-        </div>
-
         <p className="text-center text-gray-700 mt-6">
           Already have an account?{" "}
-          <Link
-            className="text-blue-600 font-semibold hover:underline"
-            to="/login"
-          >
+          <Link className="text-blue-600 font-semibold hover:underline" to="/login">
             Login Here
           </Link>
         </p>
