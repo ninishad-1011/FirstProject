@@ -1,6 +1,7 @@
 
 import './App.css'
-import Root from './componenets/Root'
+import Root from './componenets/layout/Root'
+
 
 function App() {
   
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
         <div>
-          <Root/>
+          <Root></Root>
          
         </div>
     </>

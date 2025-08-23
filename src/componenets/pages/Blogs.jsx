@@ -1,7 +1,7 @@
 import React from "react";
 
 const Blog = () => {
-  // Example blog data with 10 posts
+ 
   const blogPosts = [
     { id: 1, title: "How to Learn React Quickly", summary: "Tips and tricks to accelerate your React learning process." },
     { id: 2, title: "Understanding React Hooks", summary: "A deep dive into useState, useEffect, and custom hooks." },

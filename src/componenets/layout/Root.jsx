@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from './Navbar'
-import Product from './Product'
-import Fotter from './Fotter'
+import Navbar from '../shared/Navbar'
+import Product from '../pages/Product'
+import Fotter from '../shared/Fotter'
 import { Outlet } from 'react-router'
 
 const Root = () => {

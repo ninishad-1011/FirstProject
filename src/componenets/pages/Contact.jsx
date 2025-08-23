@@ -13,7 +13,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can handle form submission, e.g., send to backend or email
     alert(`Thank you, ${formData.name}! Your message has been submitted.`);
     setFormData({ name: "", email: "", message: "" });
   };

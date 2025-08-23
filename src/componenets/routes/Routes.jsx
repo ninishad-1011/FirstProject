@@ -1,15 +1,17 @@
-// src/components/Routes.jsx
+
 import { createBrowserRouter } from "react-router-dom";
-import Root from "./Root";
-import Home from "./Home";
-import Product from "./Product";
-import Blogs from "./Blogs";
-import Contact from "./Contact";
-import About from "./About";
+import Root from "../layout/Root";
+import Home from "../pages/Home";
+import Product from "../pages/Product";
+import Blogs from "../pages/Blogs";
+import Contact from "../pages/Contact";
+import About from "../pages/About";
+import Login from "../auth/Login";
+import Register from "../auth/Register";
 
 
 
-; // The corrected line
+
 
 const router = createBrowserRouter([
   {
@@ -30,12 +32,21 @@ const router = createBrowserRouter([
         },
         {
             path:'contact',
-            Component: Contact
+            Component:Contact
         },
         {
             path:'about',
             Component: About
+        },
+        {
+          path:'login',
+          Component: Login
+        },
+         {
+          path:'register',
+          Component: Register
         }
+
     ]
    
   }
